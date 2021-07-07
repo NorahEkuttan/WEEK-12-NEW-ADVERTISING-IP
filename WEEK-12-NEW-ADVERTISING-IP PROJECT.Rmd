@@ -1,0 +1,386 @@
+---
+title: "WEEK 12 NOTEBOOK"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+## DATA UNDERSTANDING 
+
+A Kenyan entrepreneur has created an online cryptography course and would want to advertise it on her blog. She currently targets audiences originating from various countries. In the past, she ran ads to advertise a related course on the same blog and collected data in the process. She would now like to employ your services as a Data Science Consultant to help her identify which individuals are most likely to click on her ads. 
+ 
+## METRICS OF SUCCESS
+Data cleaning
+Checking for Outliers
+Perfoming univariate analysis 
+perfomng Bivariate analysis
+
+## CONTEXT
+
+# Importing And Checking the dataset
+```{r}
+df <- read.csv("C:/Users/hp/Downloads/advertising.csv")
+head(df)
+
+```
+
+
+
+```{r}
+head(df)
+```
+
+```{r}
+str(df)
+```
+```{r}
+
+```
+## Checking for Duplicates and Uniques values
+
+```{r}
+duplicated_row <- df[duplicated(df),]
+duplicated_row
+```
+```{r}
+unique_values <- df[!duplicated(df), ]
+
+```
+
+```{r}
+null_values = is.na(df)
+
+```
+# We do not have any null values in the in our dataset
+
+# Checking for outliers using boxplots
+
+
+```{r}
+age_boxplot <- boxplot(df$Age)
+```
+```{r}
+Area.income_boxplot = boxplot(df$Area.Income)
+```
+```{r}
+Internet_boxplot <- boxplot(df$Daily.Internet.Usage)
+```
+```{r}
+time_boxplot <- boxplot(df$Daily.Time.Spent.on.Site)
+```
+ 
+# EXPLORATORY DATA ANALYSIS
+
+## UNIVARIATE ANALYSIS
+
+# Checking for the measure of central tendency (mean,mode and median)
+
+```{r}
+Age.mean <- mean(df$Age)
+Age.mean
+```
+```{r}
+Area.Income.mean <- mean(df$Area.Income)
+Area.Income.mean
+```
+```{r}
+Daily.Internet.Usage.mean <- mean(df$Daily.Internet.Usage)
+Daily.Internet.Usage.mean
+```
+```{r}
+Time.mean <- mean(df$Daily.Time.Spent.on.Site)
+Time.mean
+```
+# finding the median
+```{r}
+Age.median <- median(df$Age)
+Age.median
+```
+
+
+```{r}
+Area.Income.median <- median(df$Area.Income)
+Area.Income.median
+```
+
+
+```{r}
+Time.median <- median (df$Daily.Time.Spent.on.Site)
+Time.median
+```
+
+
+```{r}
+Daily.Internet.Usage.mean <- mean(df$Daily.Internet.Usage)
+Daily.Internet.Usage.mean
+```
+# finding the mode 
+```{r}
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+```
+
+```{r}
+Age.mode <- getmode(df$Age)
+Age.mode
+```
+
+
+```{r}
+Area.Income.mode <- getmode(df$Area.Income)
+Area.Income.mode
+```
+
+
+```{r}
+Time.mode <-getmode(df$Daily.Time.Spent.on.Site)
+Time.mode
+```
+
+
+```{r}
+Daily.Internet.Usage.mode <- getmode(df$Daily.Internet.Usage)
+Daily.Internet.Usage.mode
+```
+
+
+## MEASURE OF DISPERSION VARIANCE AND SD
+
+```{r}
+Age.sd <- sd(df$Age)
+Age.sd
+```
+
+
+```{r}
+Area.Income.sd <- sd(df$Area.Income)
+Area.Income.sd
+```
+
+
+```{r}
+Time.sd <- sd(df$Daily.Time.Spent.on.Site)
+Time.sd
+```
+
+
+```{r}
+Daily.Internet.Usage.sd <- sd(df$Daily.Internet.Usage)
+Daily.Internet.Usage.sd
+```
+
+Checking for varinace
+
+```{r}
+Age.variance <- var(df$Age)
+Age.variance
+```
+
+
+```{r}
+Area.Income.variance <- var(df$Area.Income)
+Area.Income.variance
+```
+
+
+```{r}
+Time.variance <- var(df$Daily.Time.Spent.on.Site)
+Time.variance
+```
+
+
+```{r}
+Daily.Internet.Usage.variance <- var(df$Daily.Internet.Usage)
+Daily.Internet.Usage.variance
+```
+# Frequency tables
+```{r}
+MALE <- (df$Male)
+male_frequency <- table(MALE)
+male_frequency
+```
+```{r}
+barplot(male_frequency)
+```
+
+```{r}
+Clickon.add <- (df$Clicked.on.Ad)
+click_add.frequency <- table(Clickon.add)
+click_add.frequency
+```
+
+
+```{r}
+clickadd.barplot <- barplot(click_add.frequency)
+clickadd.barplot
+```
+The ratio of male to female is almost proportional.
+The number of people who clicked the add was 500 and those who did not click the ad was also 500 hence it was uniform
+Both the Time stamp and city and countries have all unique values hence i was not able to represent them in a bar chart
+
+## BIVARIATE ANALYSIS
+# Findind correlation
+
+```{r}
+AGE <- df$Age
+Income.Area <- df$Area.Income
+Internet.Usage <- df$Daily.Internet.Usage
+Time <- df$Daily.Time.Spent.on.Site
+clickad <- df$Clicked.on.Ad
+MALE <- df$Male
+
+```
+
+```{r}
+cor(AGE,Time)
+```
+
+
+```{r}
+cor(AGE,Income.Area)
+```
+
+
+```{r}
+cor(AGE,clickad)
+
+```
+Age and click on add are positively correlated in that as age increases the probability of clickikng on an add also increases
+
+```{r}
+cor(AGE, Internet.Usage)
+```
+Age is negative correlated to internet usage in that as the age of an individual increases their daily internet usage decreases
+
+```{r}
+cor(AGE,MALE)
+```
+AGE and male are weakly correlated
+
+```{r}
+cor(Time,Internet.Usage)
+```
+Time and internet usage are positive correlated thus as daily time spent on internet increases the daily internet usage also increases
+
+```{r}
+cor(Time,clickad)
+```
+Daily time spent on the internet is strongly negatively correlated to the click on add this means that the more time one spend on the internet the lower probablity toclick on the ads
+```{r}
+cor(Time,Income.Area)
+```
+Time and income area are moderately correlated
+```{r}
+
+cor(Income.Area,Internet.Usage)
+```
+Area of income and daily internet usage are moderate positively correlated
+
+```{r}
+cor(Income.Area,clickad)
+```
+Area of income and click on ad as negatively 
+
+# Covariance
+
+```{r}
+cov(AGE,Time)
+```
+
+```{r}
+cov(AGE, Income.Area)
+```
+
+
+```{r}
+cov(AGE, clickad)
+```
+
+
+```{r}
+cov(AGE, Internet.Usage)
+```
+
+
+```{r}
+cov(Time,Internet.Usage)
+```
+
+
+```{r}
+cov(Time,clickad)
+```
+
+
+```{r}
+cov(Time,Income.Area)
+
+```
+
+
+```{r}
+cov(Income.Area,clickad)
+```
+
+
+```{r}
+cov(Income.Area,Internet.Usage)
+```
+```{r}
+cov(Internet.Usage,clickad)
+```
+
+
+## Scatter plots
+
+plot(eruptions, waiting, xlab="Eruption duration", ylab="Time waited")
+
+```{r}
+plot(Income.Area, clickad, xlab="Area income", ylab="Click on add")
+
+```
+
+```{r}
+plot(AGE, Time, xlab="AGE", ylab="Time")
+
+```
+
+
+```{r}
+plot(Time, clickad, xlab="Eruption duration", ylab="Time waited")
+
+```
+
+
+
+RECCOMENDATION
+
+Time and internet usage are positive correlated thus as daily time spent on internet increases the daily internet usage also increases.Share the ad to people who spend more time on the internet
+
+Age is negative correlated to internet usage in that as the age of an individual increases their daily internet usage decreases,so i would recommend the company to focus on more young people since they are more likely to click the ad
